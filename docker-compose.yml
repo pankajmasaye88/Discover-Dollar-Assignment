@@ -3,14 +3,14 @@ version: "3.8"
 services:
 
   frontend:
-    image: <dockerhub-username>/my-frontend:latest
+    image: docker123pankaj/my-frontend:latest
     container_name: frontend
     restart: always
     ports:
       - "3000:80"
 
   backend:
-    image: <dockerhub-username>/my-backend:latest
+    image: docker123pankaj/my-backend:latest
     container_name: backend
     restart: always
     environment:
@@ -21,7 +21,7 @@ services:
       - mongo
 
   mongo:
-    image: mongo:6
+    image: mongo:latest
     container_name: mongo
     restart: always
     ports:
