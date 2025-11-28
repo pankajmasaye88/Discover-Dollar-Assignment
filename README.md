@@ -1,27 +1,48 @@
-In this DevOps task, you need to build and deploy a full-stack CRUD application using the MEAN stack (MongoDB, Express, Angular 15, and Node.js). The backend will be developed with Node.js and Express to provide REST APIs, connecting to a MongoDB database. The frontend will be an Angular application utilizing HTTPClient for communication.  
+1. Created github repo for project https://github.com/pankajmasaye88/Discover-Dollar-Assignment.git
 
-The application will manage a collection of tutorials, where each tutorial includes an ID, title, description, and published status. Users will be able to create, retrieve, update, and delete tutorials. Additionally, a search box will allow users to find tutorials by title.
+2. Uploaded dockerfiles for both frontend and backend, also docker-compose file to run all three containers with port mapping.
 
-## Project setup
+3. Created local git on my laptop. Created dockerfiles and compose file. 
+    Pushed all three files to remote github repo.
 
-### Node.js Server
+4. Added customized github actions file on Github actions.
 
-cd backend
+5. Created Ubuntu vm on AWS.
+    Update package list.
+    Install Docker on ubunutu vm
+    sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-npm install
+6. Cloned github repo on ubuntu vm. Created docker images for fronted, backend and uploaded to Docker Hub.
+   cd /Discover-Dollar-Assignment/backend/
+    docker build . -t docker123pankaj/my-backend:latest
+    docker push docker123pankaj/my-backend:latest
+    (image name is dockerhub_id/image_name:tagname)
 
-You can update the MongoDB credentials by modifying the `db.config.js` file located in `app/config/`.
+    
+   cd /Discover-Dollar-Assignment/frontend/
+   docker build . -t docker123pankaj/my-frontend:latest
+   docker push docker123pankaj/my-frontend:latest
 
-Run `node server.js`
+7. pulled mongo_db image from docker hub
+   docker pull mongo:latest
 
-### Angular Client
+8. run docker compose in detach mode to run all three containers
+   docker compose up -d
+   docker compose ps
 
-cd frontend
+9.  install nginx reverse proxy on ubuntu vm
+    sudo apt install nginx -y
 
-npm install
+10. Enable port 80 inbound & outbound rules
+    http port 80 tcp anywhere ipv4
 
-Run `ng serve --port 8081`
+11. github secrets 
+   | Secret             | Value                   |
+| ------------------ | ----------------------- |
+| DOCKERHUB_USERNAME | Docker Hub user    |
+| DOCKERHUB_TOKEN    | Docker Hub access token |
+| SERVER_IP          | Cloud VM IP             |
+| SERVER_USER        | ubuntu                  |
+| SERVER_SSH_KEY     | VM private key     |
 
-You can modify the `src/app/services/tutorial.service.ts` file to adjust how the frontend interacts with the backend.
 
-Navigate to `http://localhost:8081/`
